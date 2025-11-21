@@ -7,7 +7,8 @@ export default function ChatUI() {
   const [messages, setMessages] = useState([])
   const [sending, setSending] = useState(false)
   const listRef = useRef(null)
-  const [authMode, setAuthMode] = useState(null) // 'signin' | 'signup' | null
+  const [authOpen, setAuthOpen] = useState(false)
+  const [authMode, setAuthMode] = useState('signin') // 'signin' or 'create'
 
   useEffect(() => {
     // scroll to bottom when messages change
@@ -35,32 +36,23 @@ export default function ChatUI() {
     }
   }
 
-  function addSystemMessage(text){
-    setMessages(prev => [...prev, { id: Date.now(), text, system:true }])
-  }
-
-  function openAuth(mode){
-    setAuthMode(mode)
-  }
-
-  function handleAuthSuccess(mode, payload){
-    // payload contains user info (name/email); just show a system message
-    addSystemMessage(mode === 'signin' ? `Signed in as ${payload.email}` : `Account created: ${payload.name || payload.email}`)
-    setAuthMode(null)
-  }
-
   return (
     <div className="chat-shell">
-      <div className="chat-header row-between">
-        <div>
+      <div className="chat-header">
+        <div className="chat-title">
           <h1>Minimal Bug Reproducer</h1>
           <p className="muted">Open innovation • Dark theme demo</p>
         </div>
-        <div className="auth-controls">
-          <button className="btn ghost" onClick={()=>openAuth('signin')}>Sign in</button>
-          <button className="btn primary" onClick={()=>openAuth('signup')}>Create account</button>
+
+        <div className="auth-btns">
+          <button className="auth-btn" onClick={() => { setAuthMode('signin'); setAuthOpen(true)}}>Sign In</button>
+          <button className="auth-btn ghost" onClick={() => { setAuthMode('create'); setAuthOpen(true)}}>Create Account</button>
         </div>
       </div>
+
+      {authOpen && (
+        <AuthModal mode={authMode} onClose={() => setAuthOpen(false)} />
+      )}
 
       <div className="messages" ref={listRef}>
         {messages.length === 0 ? (
@@ -92,9 +84,6 @@ export default function ChatUI() {
           <span className="send-icon">➤</span>
         </button>
       </div>
-      {authMode && (
-        <AuthModal mode={authMode} onClose={()=>setAuthMode(null)} onSuccess={handleAuthSuccess} />
-      )}
     </div>
   )
 }
