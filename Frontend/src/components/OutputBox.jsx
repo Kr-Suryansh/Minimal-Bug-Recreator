@@ -1,0 +1,1 @@
+// OutputBox.jsx - Empty component file

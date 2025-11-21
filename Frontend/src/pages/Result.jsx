@@ -1,0 +1,1 @@
+// Result.jsx - Empty page file

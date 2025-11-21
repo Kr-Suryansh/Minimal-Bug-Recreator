@@ -1,0 +1,1 @@
+// DescriptionBox.jsx - Empty component file

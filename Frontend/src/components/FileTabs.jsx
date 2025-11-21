@@ -1,0 +1,1 @@
+// FileTabs.jsx - Empty component file

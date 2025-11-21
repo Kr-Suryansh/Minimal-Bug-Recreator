@@ -1,0 +1,1 @@
+// ErrorInput.jsx - Empty component file

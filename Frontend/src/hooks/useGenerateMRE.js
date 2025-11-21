@@ -1,0 +1,1 @@
+// useGenerateMRE.js - Empty hook file
