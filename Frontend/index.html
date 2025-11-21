@@ -8,12 +8,18 @@
     <title>mbr</title>
   </head>
   <body>
+    <!-- Debug banner: visible if HTML is served. JS will update this text when React mounts. -->
+    <div id="debug-banner" style="position:fixed;left:12px;top:12px;padding:8px 12px;border-radius:8px;background:#111;color:#9ee7c9;z-index:9999;font-family:system-ui,Segoe UI,Roboto,Arial;font-size:13px;box-shadow:0 6px 20px rgba(2,6,23,0.6)">HTML loaded — JS not yet run</div>
+    <!-- Inline check: runs even if module fails. Changes banner immediately. -->
+    <script>
+      try {
+        var b = document.getElementById('debug-banner');
+        if (b) b.textContent = 'Inline script ran — module may still be pending';
+      } catch (e) {
+        /* ignore */
+      }
+    </script>
     <div id="root"></div>
-    <button id="ping">Ping backend</button>
-    <div id="output"></div>
-
-    <!-- Axios CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
