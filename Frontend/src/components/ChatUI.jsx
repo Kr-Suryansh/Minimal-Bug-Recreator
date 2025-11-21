@@ -72,12 +72,11 @@ export default function ChatUI() {
       <div className="chat-header">
         <div className="chat-title">
           <h1>Minimal Bug Reproducer</h1>
-          <p className="muted">Open innovation • Dark theme demo</p>
         </div>
 
         <div className="auth-btns">
-          <button className="auth-btn" onClick={() => { setAuthMode('signin'); setAuthOpen(true)}}>Sign In</button>
-          <button className="auth-btn ghost" onClick={() => { setAuthMode('create'); setAuthOpen(true)}}>Create Account</button>
+          <button className="auth-btn" onClick={() => { setAuthMode('signin'); setAuthOpen(true)}}><span>Sign In</span></button>
+          <button className="auth-btn" onClick={() => { setAuthMode('create'); setAuthOpen(true)}}><span>Create Account</span></button>
         </div>
       </div>
 
