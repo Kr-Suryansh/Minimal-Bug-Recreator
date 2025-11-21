@@ -6,6 +6,7 @@ export default function ChatUI() {
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState([])
   const [sending, setSending] = useState(false)
+  const [isComposing, setIsComposing] = useState(false)
   const listRef = useRef(null)
   const [authOpen, setAuthOpen] = useState(false)
   const [authMode, setAuthMode] = useState('signin') // 'signin' or 'create'
@@ -24,6 +25,7 @@ export default function ChatUI() {
     const text = input.trim()
     if (!text) return
     setSending(true)
+    setIsComposing(false)
     // simulate quick send
     setTimeout(() => {
       setMessages(prev => [...prev, { id: Date.now(), text }])
@@ -68,8 +70,8 @@ export default function ChatUI() {
   }
 
   return (
-    <div className="chat-shell">
-      <div className="chat-header">
+    <div className={`chat-shell ${isComposing || messages.length === 0 ? 'composing' : 'viewing'}`}>
+      <div className="chat-header" style={{opacity: isComposing ? 0 : 1, pointerEvents: isComposing ? 'none' : 'auto', transition: 'opacity 400ms ease'}}>
         <div className="chat-title">
           <h1>Minimal Bug Reproducer</h1>
         </div>
@@ -133,6 +135,8 @@ export default function ChatUI() {
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
+          onFocus={() => setIsComposing(true)}
+          onBlur={() => !input.trim() && setIsComposing(false)}
           rows={1}
         />
 
