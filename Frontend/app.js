@@ -1,6 +1,5 @@
 // app.js (plain ES5/ES6 that works in browsers)
 const API_URL = document.querySelector('meta[name="api-url"]')?.content || 'http://localhost:5000';
-
 const output = document.getElementById('output');
 const pingBtn = document.getElementById('ping');
 
