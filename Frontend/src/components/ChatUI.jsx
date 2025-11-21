@@ -9,6 +9,9 @@ export default function ChatUI() {
   const listRef = useRef(null)
   const [authOpen, setAuthOpen] = useState(false)
   const [authMode, setAuthMode] = useState('signin') // 'signin' or 'create'
+  const fileInputRef = useRef(null)
+  const imageInputRef = useRef(null)
+  const folderInputRef = useRef(null)
 
   useEffect(() => {
     // scroll to bottom when messages change
@@ -36,6 +39,34 @@ export default function ChatUI() {
     }
   }
 
+  function handleFiles(files){
+    if (!files || files.length === 0) return
+    const list = Array.from(files)
+    // add each file as a message (for images, include preview)
+    const items = list.map(f => {
+      if (f.type.startsWith('image/')){
+        return { id: Date.now()+Math.random(), image: URL.createObjectURL(f), name: f.name }
+      }
+      return { id: Date.now()+Math.random(), file: true, name: f.name }
+    })
+    setMessages(prev => [...prev, ...items])
+  }
+
+  function onSelectFiles(e){
+    handleFiles(e.target.files)
+    e.target.value = null
+  }
+
+  function onSelectImage(e){
+    handleFiles(e.target.files)
+    e.target.value = null
+  }
+
+  function onSelectFolder(e){
+    handleFiles(e.target.files)
+    e.target.value = null
+  }
+
   return (
     <div className="chat-shell">
       <div className="chat-header">
@@ -60,13 +91,42 @@ export default function ChatUI() {
         ) : (
           messages.map(m => (
             <div key={m.id} className="message from-user">
-              <div className="bubble">{m.text}</div>
+              <div className="bubble">
+                {m.image ? (
+                  <div className="file-attach">
+                    <img src={m.image} alt={m.name} className="attach-thumb" />
+                    <div className="attach-name">{m.name}</div>
+                  </div>
+                ) : m.file ? (
+                  <div className="file-attach">
+                    <div className="attach-icon">📄</div>
+                    <div className="attach-name">{m.name}</div>
+                  </div>
+                ) : (
+                  m.text
+                )}
+              </div>
             </div>
           ))
         )}
       </div>
 
       <div className="composer">
+        <div className="composer-left">
+          <button className="attach-btn" title="Upload image" onClick={() => imageInputRef.current && imageInputRef.current.click()}>
+            📷
+          </button>
+          <button className="attach-btn" title="Upload files" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
+            📎
+          </button>
+          <button className="attach-btn" title="Upload folder" onClick={() => folderInputRef.current && folderInputRef.current.click()}>
+            📁
+          </button>
+          <input ref={fileInputRef} type="file" multiple style={{display:'none'}} onChange={onSelectFiles} />
+          <input ref={imageInputRef} type="file" accept="image/*" multiple style={{display:'none'}} onChange={onSelectImage} />
+          {/* webkitdirectory allows folder selection in Chromium-based browsers */}
+          <input ref={folderInputRef} type="file" webkitdirectory="" directory="" multiple style={{display:'none'}} onChange={onSelectFolder} />
+        </div>
         <textarea
           className="composer-input"
           placeholder="Describe the minimal steps or paste a stack trace..."

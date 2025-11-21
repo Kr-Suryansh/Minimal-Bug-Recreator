@@ -80,6 +80,11 @@ body{
   opacity:0.9;
 }
 
+.file-attach{display:flex;align-items:center;gap:10px}
+.attach-thumb{max-width:220px;max-height:140px;border-radius:8px;display:block}
+.attach-name{font-size:0.9rem;color:var(--muted)}
+.attach-icon{font-size:22px}
+
 .message{display:flex;margin:0.5rem 0}
 .message .bubble{
   display:inline-block;
@@ -107,6 +112,10 @@ body{
 }
 .composer > *{pointer-events:auto}
 
+.composer-left{position:relative;left:-8px;display:flex;align-items:center;gap:8px;margin-right:auto}
+.attach-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:8px;border-radius:8px;cursor:pointer;transition:transform .14s ease,box-shadow .14s}
+.attach-btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(2,8,30,0.5);color:#e6eef8}
+
 .composer-input{
   width:calc(100% - 120px);
   max-width:820px;
@@ -114,6 +123,7 @@ body{
   resize:none;
   border-radius:999px;
   padding:12px 62px 12px 18px;
+  padding-left:86px; /* make space for attach buttons */
   background:var(--panel);
   border:1px solid rgba(255,255,255,0.04);
   color: #e6eef8;
