@@ -127,6 +127,7 @@ export default function ChatUI() {
           {/* webkitdirectory allows folder selection in Chromium-based browsers */}
           <input ref={folderInputRef} type="file" webkitdirectory="" directory="" multiple style={{display:'none'}} onChange={onSelectFolder} />
         </div>
+        <div className="composer-inner">
         <textarea
           className="composer-input"
           placeholder="Describe the minimal steps or paste a stack trace..."
@@ -143,6 +144,7 @@ export default function ChatUI() {
         >
           <span className="send-icon">➤</span>
         </button>
+        </div>
       </div>
     </div>
   )
