@@ -1,4 +1,5 @@
 import './index.css';
+import '../app.js';
 
 const root = document.getElementById('root');
 
@@ -26,12 +27,14 @@ root.innerHTML = `
 
     <div style="margin-top:1rem;">
       <button id="generateBtn" style="padding:.6rem 1rem; background:var(--accent); color:#fff; border:none; border-radius:6px;">Generate MRE</button>
+      <button id="ping" style="padding:.4rem .8rem; margin-left:.5rem;">Ping Backend</button>
     </div>
 
     <footer style="margin-top:2rem;">
       <p class="read-the-docs">Built with ❤️ — vanilla</p>
     </footer>
   </main>
+  <pre id="output" style="white-space:pre-wrap; background:#111; color:#eee; padding:12px; border-radius:6px; margin-top:1rem;"></pre>
 `;
 
 document.getElementById('generateBtn').addEventListener('click', async () => {
