@@ -1,5 +1,15 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
+require('dotenv').config();
+const bcrypt = require('bcryptjs');
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
 const User = require('./models/user');
 
 const app = express();
@@ -14,7 +24,9 @@ app.post('/register', async (req, res) => {
   const already = await User.findOne({ email });
   if (already) return res.json({ message: "User already exists" });
 
-  const user = await User.create({ username, email, password });
+  const hash = await bcrypt.hash(password, 10);
+
+  const user = await User.create({ username, email, password: hash });
 
   res.json({ message: "User created", user });
 });
@@ -26,12 +38,17 @@ app.post('/login', async (req, res) => {
   const user = await User.findOne({ email });
   if (!user) return res.json({ message: "User not found" });
 
-  if (user.password !== password)
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch)
     return res.json({ message: "Incorrect password" });
 
   res.json({ message: "Login success", user });
 });
 
+// Add your other routes (e.g., `/api/generate`) here
+
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });
+
+
