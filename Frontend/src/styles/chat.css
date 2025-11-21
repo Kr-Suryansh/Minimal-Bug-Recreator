@@ -254,17 +254,29 @@ body{
   transform: translateY(40px);
 }
 
+.chat-shell.composing .chat-header {
+  transform: scale(0.9);
+  transform-origin: top center;
+}
+
 .chat-shell.composing .composer {
-  bottom: 50%;
-  transform: translateX(-50%) translateY(50%);
+  position: fixed;
+  bottom: auto;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 .chat-shell.viewing .composer {
+  position: fixed;
   bottom: 24px;
   transform: translateX(-50%) translateY(0);
 }
 
-.messages, .composer {
+.chat-shell.viewing .chat-header {
+  transform: scale(1);
+}
+
+.messages, .composer, .chat-header {
   transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -566,6 +578,7 @@ body{
   flex:0 0 auto;
 }
 .attach-btn{
+  position: relative;
   background: var(--glass-bg);
   border:1px solid var(--glass-border);
   color:var(--text-secondary);
@@ -588,6 +601,35 @@ body{
   background: var(--glass-bg-hover);
 }
 .attach-btn:active{transform:translateY(-1px) scale(1)}
+/* Tooltip with blue gradient - applied to all interactive buttons */
+button::after {
+  content: attr(title);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  margin-top: 6px;
+  padding: 8px 12px;
+  background: linear-gradient(135deg, var(--primary-light), var(--accent-cyan));
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border-radius: 8px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+}
+
+button:hover::after {
+  opacity: 1;
+}
+
+.attach-btn, .auth-btn, .send-btn, .modal-close, .primary, .ghost {
+  position: relative;
+}
 
 .composer-inner{
   display:flex;
@@ -670,3 +712,7 @@ body{
   .composer-input{width:calc(100% - 92px);max-width:calc(100% - 92px)}
   .chat-shell{padding:0.75rem}
 }
+
+
+
+

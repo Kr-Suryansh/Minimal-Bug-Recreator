@@ -71,14 +71,14 @@ export default function ChatUI() {
 
   return (
     <div className={`chat-shell ${isComposing || messages.length === 0 ? 'composing' : 'viewing'}`}>
-      <div className="chat-header" style={{opacity: isComposing ? 0 : 1, pointerEvents: isComposing ? 'none' : 'auto', transition: 'opacity 400ms ease'}}>
+      <div className="chat-header">
         <div className="chat-title">
           <h1>Minimal Bug Reproducer</h1>
         </div>
 
         <div className="auth-btns">
-          <button className="auth-btn" onClick={() => { setAuthMode('signin'); setAuthOpen(true)}}><span>Sign In</span></button>
-          <button className="auth-btn" onClick={() => { setAuthMode('create'); setAuthOpen(true)}}><span>Create Account</span></button>
+          <button className="auth-btn" title="Sign In" onClick={() => { setAuthMode('signin'); setAuthOpen(true)}}><span>Sign In</span></button>
+          <button className="auth-btn" title="Create Account" onClick={() => { setAuthMode('create'); setAuthOpen(true)}}><span>Create Account</span></button>
         </div>
       </div>
 
@@ -143,6 +143,7 @@ export default function ChatUI() {
         <button
           className={`send-btn ${sending ? 'sending' : ''}`}
           onClick={handleSend}
+          title="Send"
           aria-label="Send"
         >
           <span className="send-icon">➤</span>
