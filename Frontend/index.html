@@ -7,7 +7,42 @@
     <title>mbr</title>
   </head>
   <body>
+    <!-- Debug banner: visible if HTML is served. JS will update this text when React mounts. -->
+    <div id="debug-banner" style="position:fixed;left:12px;top:12px;padding:8px 12px;border-radius:8px;background:#111;color:#9ee7c9;z-index:9999;font-family:system-ui,Segoe UI,Roboto,Arial;font-size:13px;box-shadow:0 6px 20px rgba(2,6,23,0.6)">HTML loaded — JS not yet run</div>
+    <!-- Inline check: runs even if module fails. Changes banner immediately. -->
+    <script>
+      try {
+        var b = document.getElementById('debug-banner');
+        if (b) b.textContent = 'Inline script ran — module may still be pending';
+      } catch (e) {
+        /* ignore */
+      }
+    </script>
     <div id="root"></div>
+    <!-- Attach global error handlers so any module load/runtime error updates the banner -->
+    <script>
+      (function(){
+        var b = document.getElementById('debug-banner');
+        window.addEventListener('error', function(ev){
+          try{
+            if (b) {
+              b.textContent = 'Error: ' + (ev && ev.error && ev.error.message ? ev.error.message : ev.message || 'Unknown');
+              b.style.background = '#421212';
+              b.style.color = '#ffb4b4';
+            }
+          }catch(e){}
+        });
+        window.addEventListener('unhandledrejection', function(ev){
+          try{
+            if (b) {
+              b.textContent = 'UnhandledRejection: ' + (ev && ev.reason && ev.reason.message ? ev.reason.message : String(ev.reason));
+              b.style.background = '#421212';
+              b.style.color = '#ffb4b4';
+            }
+          }catch(e){}
+        });
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
