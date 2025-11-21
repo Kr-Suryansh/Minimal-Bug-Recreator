@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+// import your LangChain workflow function
 const { invokeLangChainWorkflow } = require('../services/langchain.service'); // your new LangChain service
 // Optional: if you keep sanitize.service.js
 const { sanitizeInput } = require('../services/sanitize.service.js');
