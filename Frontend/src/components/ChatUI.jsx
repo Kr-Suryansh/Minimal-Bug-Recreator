@@ -11,7 +11,7 @@ export default function ChatUI() {
   const [authOpen, setAuthOpen] = useState(false)
   const [authMode, setAuthMode] = useState('signin') // 'signin' or 'create'
   const fileInputRef = useRef(null)
-  const imageInputRef = useRef(null)
+  const zipInputRef = useRef(null)
   const folderInputRef = useRef(null)
 
   useEffect(() => {
@@ -59,7 +59,7 @@ export default function ChatUI() {
     e.target.value = null
   }
 
-  function onSelectImage(e){
+  function onSelectZip(e){
     handleFiles(e.target.files)
     e.target.value = null
   }
@@ -114,8 +114,8 @@ export default function ChatUI() {
 
       <div className="composer">
         <div className="composer-left">
-          <button className="attach-btn" title="Upload image" onClick={() => imageInputRef.current && imageInputRef.current.click()}>
-            📷
+          <button className="attach-btn" title="Upload ZIP file" onClick={() => zipInputRef.current && zipInputRef.current.click()}>
+            📦
           </button>
           <button className="attach-btn" title="Upload files" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
             📎
@@ -124,7 +124,7 @@ export default function ChatUI() {
             📁
           </button>
           <input ref={fileInputRef} type="file" multiple style={{display:'none'}} onChange={onSelectFiles} />
-          <input ref={imageInputRef} type="file" accept="image/*" multiple style={{display:'none'}} onChange={onSelectImage} />
+          <input ref={zipInputRef} type="file" accept=".zip,application/zip,application/x-zip,application/x-zip-compressed" style={{display:'none'}} onChange={onSelectZip} />
           {/* webkitdirectory allows folder selection in Chromium-based browsers */}
           <input ref={folderInputRef} type="file" webkitdirectory="" directory="" multiple style={{display:'none'}} onChange={onSelectFolder} />
         </div>
