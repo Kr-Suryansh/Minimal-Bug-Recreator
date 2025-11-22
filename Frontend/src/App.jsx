@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import './App.css'
+import logo from './logo.png'
 
 export default function App() {
   const [errorMessage, setErrorMessage] = useState('')
@@ -38,8 +39,14 @@ export default function App() {
 
   return (
     <div style={{ maxWidth: 900, margin: '20px auto', fontFamily: 'system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial' }}>
-      <h1>Minimal Bug Recreator</h1>
-      <p>Upload your project (optional), paste the error and snippet. Receive a ZIP that reproduces the bug.</p>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '24px', marginTop: '8px', marginBottom: '20px' }}>
+        <img src={logo} alt="BUG FORGE Logo" style={{ width: '150px', height: '150px', objectFit: 'contain', filter: 'drop-shadow(0 0 30px rgba(59, 130, 246, 0.8))', flexShrink: 0 }} />
+        <div style={{ flex: 1 }}>
+          <h1 style={{ margin: '0 0 4px 0' }}>BUG &lt;/FORGE&gt;</h1>
+          <p style={{ margin: '0 0 12px 0', fontSize: '0.9rem', fontWeight: '600', letterSpacing: '0.15em', color: '#a855f7', textTransform: 'uppercase' }}>WHERE BUGS GET BEATEN</p>
+          <p style={{ margin: 0 }}>Upload your project (optional), paste the error and snippet. Receive a ZIP that reproduces the bug.</p>
+        </div>
+      </div>
 
       <form onSubmit={handleSubmit}>
         <div style={{ margin: '12px 0' }}>
