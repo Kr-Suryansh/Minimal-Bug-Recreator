@@ -38,6 +38,7 @@ export default function App() {
 
   return (
     <div style={{ maxWidth: 900, margin: '20px auto', fontFamily: 'system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial' }}>
+      <h1>Bug-GIT</h1>
       <h1>Minimal Bug Recreator</h1>
       <p>Upload your project (optional), paste the error and snippet. Receive a ZIP that reproduces the bug.</p>
 
