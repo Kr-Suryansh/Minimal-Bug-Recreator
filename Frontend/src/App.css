@@ -1,0 +1,305 @@
+/* App.css */
+
+:root {
+  /* Dark blue-black shaded palette */
+  --bg-base: #050a14;
+  --bg-elevated: #0a0f1a;
+  --bg-surface: #0d1421;
+  --bg-panel: #111827;
+  
+  /* Deep blue accents */
+  --primary: #1e40af;
+  --primary-light: #3b82f6;
+  --primary-dark: #1e3a8a;
+  --secondary: #6366f1;
+  --accent-blue: #0ea5e9;
+  --accent-cyan: #06b6d4;
+  
+  /* Text colors */
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  
+  /* Glass effect with blue tint */
+  --glass-border: rgba(59, 130, 246, 0.12);
+  --glass-bg: rgba(30, 64, 175, 0.08);
+  --glass-bg-hover: rgba(59, 130, 246, 0.15);
+  
+  /* Shadows with blue tint */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 40px rgba(30, 64, 175, 0.2);
+}
+
+/* Base Setup */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-primary);
+  background-color: var(--bg-base);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Background Animation Effect (Adapted to Body) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: #000;
+  --c: #09f;
+  background-image: radial-gradient(4px 100px at 0px 235px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 235px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 117.5px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 252px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 252px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 126px, var(--c) 100%, #0000 150%);
+  background-size: 300px 235px, 300px 235px, 300px 235px, 300px 252px, 300px 252px, 300px 252px;
+  animation: hi 150s linear infinite;
+  opacity: 0.4;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  backdrop-filter: blur(1em) brightness(1.2);
+  background-image: radial-gradient(circle at 50% 50%, #0000 0, #0000 2px, hsl(0 0 4%) 2px);
+  background-size: 8px 8px;
+}
+
+@keyframes hi {
+  0% { background-position: 0px 220px, 3px 220px, 151.5px 337.5px, 25px 24px, 28px 24px, 176.5px 150px; }
+  to { background-position: 0px 6800px, 3px 6800px, 151.5px 6917.5px, 25px 13632px, 28px 13632px, 176.5px 13758px; }
+}
+
+/* Main Container Layout */
+#root > div {
+  background: var(--bg-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 32px 40px; /* Increased padding over inline styles */
+  box-shadow: var(--shadow-lg), 0 0 50px rgba(30, 64, 175, 0.2);
+  backdrop-filter: blur(20px);
+  position: relative;
+  z-index: 1;
+  animation: popIn 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+/* Typography */
+h1 {
+  margin: 0 0 1rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--primary-light), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+}
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* Form Elements */
+label {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+textarea, select, input[type="text"] {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 2px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-primary);
+  outline: none;
+  font-size: 0.95rem;
+  font-family: 'Inter', monospace; /* Monospace helpful for code */
+  transition: all 200ms ease;
+  backdrop-filter: blur(8px);
+  box-sizing: border-box;
+}
+
+select {
+  background-color: var(--bg-panel);
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+  padding-right: 40px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select option {
+  background-color: var(--bg-panel);
+  color: var(--text-primary);
+  padding: 8px;
+}
+
+select option:checked {
+  background: linear-gradient(var(--primary), var(--primary));
+  background-color: var(--primary);
+  color: white;
+}
+
+textarea:focus, select:focus, input[type="text"]:focus {
+  border-color: var(--primary-light);
+  background: var(--glass-bg-hover);
+  box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.15);
+}
+
+select:focus {
+  background-color: var(--bg-panel);
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px;
+}
+
+textarea::placeholder {
+  color: var(--text-muted);
+}
+
+/* File Input Styling */
+input[type="file"] {
+  padding: 10px;
+  background: var(--glass-bg);
+  border: 1px dashed var(--glass-border);
+  border-radius: 12px;
+  width: 100%;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+input[type="file"]:hover {
+  border-color: var(--primary-light);
+  background: var(--glass-bg-hover);
+  color: var(--text-primary);
+}
+
+input[type="file"]::file-selector-button {
+  background: var(--bg-elevated);
+  border: 1px solid var(--glass-border);
+  color: var(--primary-light);
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-right: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* Primary Button */
+button[type="submit"] {
+  width: 100%;
+  margin-top: 12px;
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-md), 0 0 25px rgba(30, 64, 175, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), 0 0 35px rgba(30, 64, 175, 0.5);
+}
+
+button[type="submit"]:active {
+  transform: translateY(0) scale(0.98);
+}
+
+button[type="submit"]:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Download Link Styling */
+a[download] {
+  display: inline-block;
+  margin-top: 20px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--accent-cyan);
+  padding: 12px 24px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 200ms ease;
+  backdrop-filter: blur(8px);
+}
+
+a[download]:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--accent-cyan);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Error Message Override */
+p[style*="crimson"] {
+  color: #ff6b6b !important;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.2);
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--glass-bg-hover); }
+
+/* Animation Keyframes */
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
